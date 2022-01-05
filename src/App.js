@@ -1,24 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
-
+import Autocomplete from './components/Autocomplete';
 function App() {
+  const url ='https://pokeapi.co/api/v2/pokemon?limit=100&offset=200'
+  let pokeArray = []
+  async function pokemonData (){
+    const resp = await fetch (url); //Here, you fetch the url
+    const data = await resp.json(); //The data is converted to json
+    data.results.forEach(element => {
+      pokeArray.push(element.name)
+    });
+};
+pokemonData();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div className='wrapper'>
+     <h1>React Autocomplete component in ES6</h1>
+      <Autocomplete options={pokeArray} />
+   </div>
   );
 }
 
